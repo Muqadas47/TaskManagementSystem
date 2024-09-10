@@ -1,0 +1,191 @@
+﻿@model User
+
+@{
+    ViewBag.Title = "Edit User";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #e3f2fd, #bbdefb);
+            font-family: 'Arial', sans-serif;
+        }
+
+        .form-container {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            padding: 30px;
+            margin-top: 50px;
+            border: 1px solid #ddd;
+        }
+
+        .header {
+            background: #007bff;
+            color: #ffffff;
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-control {
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+            .form-control:focus {
+                border-color: #007bff;
+                box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+            }
+
+        .btn-primary {
+            background-color: #ff4081;
+            border-color: #ff4081;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+            .btn-primary:hover {
+                background-color: #c60055;
+                border-color: #b4004f;
+            }
+
+        .btn-save {
+            background-color: #28a745;
+            border-color: #28a745;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+            .btn-save:hover {
+                background-color: #218838;
+                border-color: #1e7e34;
+            }
+
+        .btn-default {
+            background-color: #ffffff;
+            border-color: #ddd;
+            font-size: 16px;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+            .btn-default:hover {
+                background-color: #f1f1f1;
+                border-color: #ccc;
+            }
+
+        .text-danger {
+            color: #dc3545;
+        }
+
+        .form-check-input {
+            margin-top: 0.3rem;
+        }
+
+        .form-group.row {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .col-md-10 {
+            display: flex;
+            align-items: center;
+        }
+
+        .form-check-input {
+            margin-top: 0.3rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <div class="header">Edit User</div>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    @Html.HiddenFor(model => model.UserID)
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    @* Password field is commented out *@
+                    @*<div class="form-group row">
+                            @Html.LabelFor(model => model.PasswordHash, "Password", htmlAttributes: new { @class = "col-md-2 col-form-label" })
+                            <div class="col-md-10">
+                                @Html.PasswordFor(model => model.PasswordHash, new { @class = "form-control" } )
+                                @Html.ValidationMessageFor(model => model.PasswordHash, "", new { @class = "text-danger" })
+                            </div>
+                        </div>*@
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Role, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.IsBlocked, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+                        <div class="col-md-10">
+                            @Html.CheckBoxFor(model => model.IsBlocked, new { @class = "form-check-input" })
+                            @Html.ValidationMessageFor(model => model.IsBlocked, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.IsDeleted, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+                        <div class="col-md-10">
+                            @Html.CheckBoxFor(model => model.IsDeleted, new { @class = "form-check-input" })
+                            @Html.ValidationMessageFor(model => model.IsDeleted, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-10 offset-md-2">
+                            <input type="submit" value="Save" class="btn btn-save" />
+                            @Html.ActionLink("Back to List", "UserList", null, new { @class = "btn btn-default" })
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
